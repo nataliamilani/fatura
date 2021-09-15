@@ -4,6 +4,7 @@ import com.impacta.microservices.fatura.domain.Fatura;
 
 import com.impacta.microservices.fatura.domain.FaturaAtualizaValorRequest;
 import com.impacta.microservices.fatura.service.FaturaService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.json.JSONException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import javax.validation.Valid;
 import java.net.UnknownHostException;
 import java.util.List;
 
+@Tag(name="Fatura endpoint")
 @RestController
 @RequestMapping("/fatura")
 public class FaturaController {
