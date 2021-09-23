@@ -25,6 +25,27 @@ public class FaturaService {
         return  repository.findByContaIdAndMesAndAno(contaId, mes, ano);
 
     }
+/*
+    public Fatura pagarFaturaContaIdMesAnoValor(Integer contaId, String mes, String ano, Double valorPagar) {
+
+        Double valorAtual = repository.findByValorFatura(contaId, mes, ano);
+        Double valorDif = valorAtual - valorPagar;
+        var fatura = consultaFaturaContaIdMesAno(contaId, mes, ano);
+        fatura.setValorFatura(valorDif);
+
+        if(valorDif == 0){
+            fatura.setStatusFatura("Pagamento Integral");
+        }else if(valorDif < 0){
+            fatura.setStatusFatura("Crédito prox.fatura");
+        }else if (valorDif > 0){
+            fatura.setStatusFatura("Pagamento Parcial");
+        }
+
+        return criarFatura(fatura);
+
+    }
+
+ */
 
     public Fatura pagarFaturaContaIdMesAnoValor(Integer contaId, String mes, String ano, Double valorPagar) {
 
@@ -44,5 +65,6 @@ public class FaturaService {
         return criarFatura(fatura);
 
     }
+
 
 }
