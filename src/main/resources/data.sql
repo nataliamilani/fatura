@@ -4,7 +4,7 @@ conta_id INT,
 mes VARCHAR(10),
 ano VARCHAR(4),
 valor_fatura DECIMAL,
-status_fatura VARCHAR(40),
+status_fatura VARCHAR(100),
 CONSTRAINT uc_fatura UNIQUE (conta_id , mes, ano)
 );
 
