@@ -28,5 +28,11 @@ spring:
       mode: always
       data-locations: classpath:data.sql
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics, prometheus
+
 clients:
   contacorrente: '${CONTA_CORRENTE_URL:http://localhost:8083/conta-corrente}'
