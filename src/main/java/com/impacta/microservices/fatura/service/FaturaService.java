@@ -6,9 +6,6 @@ import com.impacta.microservices.fatura.domain.Fatura;
 import com.impacta.microservices.fatura.repository.FaturaRepository;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.stream.Stream;
-
 @Component
 public class FaturaService {
 
@@ -73,7 +70,7 @@ public class FaturaService {
             }
 
         }else{
-            fatura.setStatusFatura("Saldo insuficiente em conta corrente - Transação negada");
+            fatura.setStatusFatura("Saldo insuficiente em conta corrente bloco- Transação negada");
         }
 
         return criarFatura(fatura);

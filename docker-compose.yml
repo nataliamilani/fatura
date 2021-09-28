@@ -14,7 +14,7 @@ services:
       - conta-corrente_net-driver
     external_links:
       - eureka:eureka
-      - conta-corrente:conta-corrente
+      - contacorrente:contacorrente
     depends_on:
       - db
     links:

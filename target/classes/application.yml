@@ -29,4 +29,4 @@ spring:
       data-locations: classpath:data.sql
 
 clients:
-  contacorrente: '${CONTACORRENTE_URL:http://localhost:8083/conta-corrente}'
+  contacorrente: '${CONTA_CORRENTE_URL:http://localhost:8083/conta-corrente}'
