@@ -36,3 +36,4 @@ management:
 
 clients:
   contacorrente: '${CONTA_CORRENTE_URL:http://localhost:8083/conta-corrente}'
+  debito: '${DEBITO_URL:http://localhost:8082/debito}'

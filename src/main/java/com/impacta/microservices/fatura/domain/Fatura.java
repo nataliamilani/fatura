@@ -18,6 +18,9 @@ public class Fatura implements Serializable {
     @Column(name = "conta_id")
     private Integer contaId;
 
+    @Column(name = "cliente_id")
+    private Integer clienteId;
+
     @Column(name = "mes")
     private String mes;
 
@@ -30,23 +33,29 @@ public class Fatura implements Serializable {
     @Column(name = "status_fatura")
     private String statusFatura;
 
+    @Column(name = "status_pagamento")
+    private String statusPagamento;
+
+
     public Fatura() {
         super();
     }
 
     @JsonCreator
-    public Fatura(@JsonProperty("id_fatura") Integer idFatura,
-                  @JsonProperty("conta_id") Integer contaId,
+    public Fatura(@JsonProperty("conta_id") Integer contaId,
+                  @JsonProperty("cliente_id") Integer clienteId,
                   @JsonProperty("mes") String mes,
                   @JsonProperty("ano") String ano,
                   @JsonProperty("valor_fatura") Double valorFatura,
-                  @JsonProperty("status_fatura") String statusFatura){
-        this.idFatura = idFatura;
+                  @JsonProperty("status_fatura") String statusFatura,
+                  @JsonProperty("status_pagamento") String statusPagamento){
         this.contaId = contaId;
+        this.clienteId = clienteId;
         this.mes = mes;
         this.ano = ano;
         this.valorFatura = valorFatura;
         this.statusFatura = statusFatura;
+        this.statusPagamento = statusPagamento;
     }
 
     public Integer getIdFatura() {
@@ -63,6 +72,14 @@ public class Fatura implements Serializable {
 
     public void setContaId(Integer contaId) {
         this.contaId = contaId;
+    }
+
+    public Integer getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(Integer clienteId) {
+        this.clienteId = clienteId;
     }
 
     public String getMes() {
@@ -95,5 +112,13 @@ public class Fatura implements Serializable {
 
     public void setStatusFatura(String statusFatura) {
         this.statusFatura = statusFatura;
+    }
+
+    public String getStatusPagamento() {
+        return statusPagamento;
+    }
+
+    public void setStatusPagamento(String statusPagamento) {
+        this.statusPagamento = statusPagamento;
     }
 }
