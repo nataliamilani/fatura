@@ -5,8 +5,11 @@ import com.impacta.microservices.fatura.client.DebitoClient;
 import com.impacta.microservices.fatura.client.response.ConsultaContaCorrente;
 import com.impacta.microservices.fatura.client.response.CriarDebito;
 import com.impacta.microservices.fatura.domain.Fatura;
+import com.impacta.microservices.fatura.exceptions.FaturaNotFoundException;
 import com.impacta.microservices.fatura.repository.FaturaRepository;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class FaturaService {
@@ -24,46 +27,67 @@ public class FaturaService {
     }
 
     public Fatura criarFatura(Fatura fatura){
+
+        var criarFatura = consultaFaturaContaIdMesAno(fatura.getContaId(), fatura.getMes(), fatura.getAno()).isPresent();
+
+        if(criarFatura){
+            throw new FaturaNotFoundException("Fatura já existente para conta: " + fatura.getContaId() + ", referente ao período: " + fatura.getMes() + "/" + fatura.getAno());
+        }
+
         return repository.save(fatura);
     }
 
-    public Fatura consultaFaturaContaIdMesAno(Integer contaId, String mes, String ano) {
+    public Optional<Fatura> consultaFaturaContaIdMesAno(Integer contaId, String mes, String ano) {
 
-        return  repository.findByContaIdAndMesAndAno(contaId, mes, ano);
+        var consultaFatura = repository.findByContaIdAndMesAndAno(contaId, mes, ano).isPresent();
+
+        if(!consultaFatura){
+            throw new FaturaNotFoundException("Não existe fatura para conta: " + contaId + ", referente ao período: " + mes + "/" + ano);
+        }
+
+        return repository.findByContaIdAndMesAndAno(contaId, mes, ano);
 
     }
 
     public Fatura pagarFaturaContaIdMesAnoValor(Integer contaId, String mes, String ano, Double valorPagar) {
 
-        ConsultaContaCorrente consultaContaCorrente = contaCorrenteClient.getDadosContaCorrente(contaId);
-        Double valorAtual = repository.findByValorFatura(contaId, mes, ano);
+        var consultaFatura = repository.findByContaIdAndMesAndAno(contaId, mes, ano).isPresent();
 
-        var fatura = consultaFaturaContaIdMesAno(contaId, mes, ano);
+        if(!consultaFatura){
+            throw new FaturaNotFoundException("Não existe fatura para conta: " + contaId + ", referente ao período: " + mes + "/" + ano);
+        }else {
 
-        if (consultaContaCorrente.getSaldo() >= valorAtual) {
+            ConsultaContaCorrente consultaContaCorrente = contaCorrenteClient.getDadosContaCorrente(contaId);
+            //Double valorAtual = repository.findByValorFatura(contaId, mes, ano);
 
-            Double valorDif = valorAtual - valorPagar;
-            fatura.setValorFatura(valorDif);
+            var fatura = consultaFaturaContaIdMesAno(contaId, mes, ano).get();
 
-            if(valorDif == 0){
-                fatura.setStatusFatura("Paga");
-                fatura.setStatusPagamento("Pagamento Integral");
-            }else if(valorDif < 0){
-                fatura.setStatusFatura("Paga");
-                fatura.setStatusPagamento("Crédito prox.fatura");
-            }else if (valorDif > 0){
-                fatura.setStatusFatura("Fechada - Pagamento pendente");
-                fatura.setStatusPagamento("Pagamento Parcial");
+            if (consultaContaCorrente.getSaldo() >= fatura.getValorFatura()) {
+
+                Double valorDif = fatura.getValorFatura() - valorPagar;
+                fatura.setValorFatura(valorDif);
+
+                if (valorDif == 0) {
+                    fatura.setStatusFatura("Paga");
+                    fatura.setStatusPagamento("Pagamento Integral");
+                } else if (valorDif < 0) {
+                    fatura.setStatusFatura("Paga");
+                    fatura.setStatusPagamento("Crédito prox.fatura");
+                } else if (valorDif > 0) {
+                    fatura.setStatusFatura("Fechada - Pagamento pendente");
+                    fatura.setStatusPagamento("Pagamento Parcial");
+                }
+
+                CriarDebito criarDebito = new CriarDebito(contaId, valorPagar, consultaContaCorrente.getClienteId(), "contacorrente");
+                debitoClient.criarDebito(criarDebito);
+
+            } else {
+                fatura.setStatusPagamento("Saldo insuficiente em conta corrente - Transação negada");
             }
 
-            CriarDebito criarDebito = new CriarDebito(contaId, valorPagar, consultaContaCorrente.getClienteId(), "contacorrente");
-            debitoClient.criarDebito(criarDebito);
+            return repository.save(fatura);
 
-        }else{
-            fatura.setStatusPagamento("Saldo insuficiente em conta corrente - Transação negada");
         }
-
-        return criarFatura(fatura);
 
     }
 

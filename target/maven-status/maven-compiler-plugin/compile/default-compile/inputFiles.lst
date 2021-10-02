@@ -9,3 +9,4 @@ C:\Users\natal\Git\fatura\src\main\java\com\impacta\microservices\fatura\control
 C:\Users\natal\Git\fatura\src\main\java\com\impacta\microservices\fatura\repository\FaturaRepository.java
 C:\Users\natal\Git\fatura\src\main\java\com\impacta\microservices\fatura\configuration\OpenApiConfiguration.java
 C:\Users\natal\Git\fatura\src\main\java\com\impacta\microservices\fatura\domain\FaturaAtualizaValorRequest.java
+C:\Users\natal\Git\fatura\src\main\java\com\impacta\microservices\fatura\exceptions\FaturaNotFoundException.java

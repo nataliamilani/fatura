@@ -9,3 +9,4 @@ com\impacta\microservices\fatura\FaturaApplication.class
 com\impacta\microservices\fatura\controller\FaturaController.class
 com\impacta\microservices\fatura\domain\FaturaAtualizaValorRequest.class
 com\impacta\microservices\fatura\repository\FaturaRepository.class
+com\impacta\microservices\fatura\exceptions\FaturaNotFoundException.class

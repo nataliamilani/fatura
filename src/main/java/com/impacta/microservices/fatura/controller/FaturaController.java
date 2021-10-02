@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.net.UnknownHostException;
+import java.util.Optional;
 
 @Tag(name="Fatura endpoint")
 @RestController
@@ -37,14 +39,15 @@ public class FaturaController {
 
     //GET PARA CONSULTAR FATURA POR CONTA, MES E ANO
     @GetMapping(path = "/consulta/{contaId}/{mes}/{ano}")
-    public Fatura consultaFaturaContaIdMesAno(@PathVariable("contaId") Integer contaId,
-                                              @PathVariable("mes") String mes,
-                                              @PathVariable("ano") String ano) throws UnknownHostException {
+    public Optional<Fatura> consultaFaturaContaIdMesAno(@PathVariable("contaId") Integer contaId,
+                                                        @PathVariable("mes") String mes,
+                                                        @PathVariable("ano") String ano) throws UnknownHostException {
 
         return  faturaService.consultaFaturaContaIdMesAno(contaId, mes, ano);
 
     }
 
+/*
     //PUT PARA PAGAR FATURA
     @PutMapping (path = "/pagar/{contaId}/{mes}/{ano}", produces = { "application/json" })
     public ResponseEntity<Fatura> pagarFaturaContaIdMesAnoValor(@PathVariable("contaId") Integer contaId,
@@ -57,5 +60,18 @@ public class FaturaController {
         return new ResponseEntity<Fatura>(atualizaPagmentoFatura, HttpStatus.OK);
 
     }
-    
+*/
+
+    //PUT PARA PAGAR FATURA
+    @PutMapping (path = "/pagar/{contaId}/{mes}/{ano}", produces = { "application/json" })
+    public Fatura pagarFaturaContaIdMesAnoValor(@PathVariable("contaId") Integer contaId,
+                                                @PathVariable("mes") String mes,
+                                                @PathVariable("ano") String ano,
+                                                @NotNull @Valid @RequestBody FaturaAtualizaValorRequest valorPagar) throws UnknownHostException {
+
+        Fatura atualizaPagmentoFatura = faturaService.pagarFaturaContaIdMesAnoValor(contaId, mes, ano, valorPagar.getValorFaturaAtualiza());
+
+        return atualizaPagmentoFatura;
+
+    }
 }
