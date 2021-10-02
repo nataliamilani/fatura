@@ -1,6 +1,5 @@
 package com.impacta.microservices.fatura.controller;
 
-import com.impacta.microservices.fatura.client.response.SaldoContaCorrente;
 import com.impacta.microservices.fatura.domain.Fatura;
 
 import com.impacta.microservices.fatura.domain.FaturaAtualizaValorRequest;
@@ -56,15 +55,6 @@ public class FaturaController {
         Fatura atualizaPagmentoFatura = faturaService.pagarFaturaContaIdMesAnoValor(contaId, mes, ano, valorPagar.getValorFaturaAtualiza());
 
         return new ResponseEntity<Fatura>(atualizaPagmentoFatura, HttpStatus.OK);
-
-    }
-
-
-    //GET PARA CONSULTAR FATURA POR CONTA, MES E ANO
-    @GetMapping(path = "/consulta/saldo-contacorrente/{contaId}")
-    public SaldoContaCorrente consultaSaldoContaCorrente(@PathVariable("contaId") Integer contaId) throws UnknownHostException {
-
-        return  faturaService.consultaSaldoContaCorrente(contaId);
 
     }
     

@@ -1,7 +1,7 @@
 C:\Users\natal\Git\fatura\src\main\java\com\impacta\microservices\fatura\service\FaturaService.java
 C:\Users\natal\Git\fatura\src\main\java\com\impacta\microservices\fatura\client\response\CriarDebito.java
 C:\Users\natal\Git\fatura\src\main\java\com\impacta\microservices\fatura\domain\Fatura.java
-C:\Users\natal\Git\fatura\src\main\java\com\impacta\microservices\fatura\client\response\SaldoContaCorrente.java
+C:\Users\natal\Git\fatura\src\main\java\com\impacta\microservices\fatura\client\response\ConsultaContaCorrente.java
 C:\Users\natal\Git\fatura\src\main\java\com\impacta\microservices\fatura\client\ContaCorrenteClient.java
 C:\Users\natal\Git\fatura\src\main\java\com\impacta\microservices\fatura\FaturaApplication.java
 C:\Users\natal\Git\fatura\src\main\java\com\impacta\microservices\fatura\client\DebitoClient.java

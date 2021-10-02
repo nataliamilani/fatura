@@ -9,7 +9,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.License;
 
 @OpenAPIDefinition(info = @Info(title = "Fatura" , version = "v1",
-        description = "documentação de API Fatura"))
+        description = "Documentação de API Fatura"))
 public class OpenApiConfiguration {
 
     @Bean

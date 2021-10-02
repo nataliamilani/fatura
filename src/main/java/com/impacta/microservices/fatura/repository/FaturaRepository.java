@@ -15,8 +15,4 @@ public interface FaturaRepository extends JpaRepository<Fatura, Integer> {
     @Query(value = "select valor_fatura from fatura where conta_id = ?1 and mes = ?2 and ano = ?3", nativeQuery = true)
     Double findByValorFatura(Integer contaId, String mes, String ano);
 
-    @Query(value = "select cliente_id from fatura where conta_id = ?1 and mes = ?2 and ano = ?3", nativeQuery = true)
-    Integer findByClienteFatura(Integer contaId, String mes, String ano);
-
-   // List<Fatura> updateByContaIdAndMesAndAnoAndValorFatura(Integer contaId, String mes, String ano, Double valorFatura);
 }

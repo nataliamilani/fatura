@@ -1,4 +1,5 @@
 com\impacta\microservices\fatura\configuration\OpenApiConfiguration.class
+com\impacta\microservices\fatura\client\response\ConsultaContaCorrente.class
 com\impacta\microservices\fatura\client\response\CriarDebito.class
 com\impacta\microservices\fatura\client\ContaCorrenteClient.class
 com\impacta\microservices\fatura\service\FaturaService.class
@@ -8,4 +9,3 @@ com\impacta\microservices\fatura\FaturaApplication.class
 com\impacta\microservices\fatura\controller\FaturaController.class
 com\impacta\microservices\fatura\domain\FaturaAtualizaValorRequest.class
 com\impacta\microservices\fatura\repository\FaturaRepository.class
-com\impacta\microservices\fatura\client\response\SaldoContaCorrente.class

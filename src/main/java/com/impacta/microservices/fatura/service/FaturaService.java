@@ -2,8 +2,8 @@ package com.impacta.microservices.fatura.service;
 
 import com.impacta.microservices.fatura.client.ContaCorrenteClient;
 import com.impacta.microservices.fatura.client.DebitoClient;
+import com.impacta.microservices.fatura.client.response.ConsultaContaCorrente;
 import com.impacta.microservices.fatura.client.response.CriarDebito;
-import com.impacta.microservices.fatura.client.response.SaldoContaCorrente;
 import com.impacta.microservices.fatura.domain.Fatura;
 import com.impacta.microservices.fatura.repository.FaturaRepository;
 import org.springframework.stereotype.Component;
@@ -35,12 +35,12 @@ public class FaturaService {
 
     public Fatura pagarFaturaContaIdMesAnoValor(Integer contaId, String mes, String ano, Double valorPagar) {
 
-        SaldoContaCorrente saldoContaCorrente = contaCorrenteClient.getSaldoContaCorrente(contaId);
+        ConsultaContaCorrente consultaContaCorrente = contaCorrenteClient.getDadosContaCorrente(contaId);
         Double valorAtual = repository.findByValorFatura(contaId, mes, ano);
 
         var fatura = consultaFaturaContaIdMesAno(contaId, mes, ano);
 
-        if (saldoContaCorrente.getValorContaCorrente() >= valorAtual) {
+        if (consultaContaCorrente.getSaldo() >= valorAtual) {
 
             Double valorDif = valorAtual - valorPagar;
             fatura.setValorFatura(valorDif);
@@ -56,9 +56,7 @@ public class FaturaService {
                 fatura.setStatusPagamento("Pagamento Parcial");
             }
 
-            Integer clienteId = repository.findByClienteFatura(contaId, mes, ano);
-
-            CriarDebito criarDebito = new CriarDebito(contaId, valorPagar, clienteId, "contacorrente");
+            CriarDebito criarDebito = new CriarDebito(contaId, valorPagar, consultaContaCorrente.getClienteId(), "contacorrente");
             debitoClient.criarDebito(criarDebito);
 
         }else{
@@ -67,11 +65,6 @@ public class FaturaService {
 
         return criarFatura(fatura);
 
-    }
-
-    public SaldoContaCorrente consultaSaldoContaCorrente(Integer contaId){
-        SaldoContaCorrente saldoContaCorrente = contaCorrenteClient.getSaldoContaCorrente(contaId);
-        return saldoContaCorrente;
     }
 
 }
