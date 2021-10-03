@@ -1,0 +1,3 @@
+com\impacta\microservices\fatura\controller\FaturaControllerTest.class
+com\impacta\microservices\fatura\domain\FaturaTest.class
+com\impacta\microservices\fatura\service\FaturaServiceTest.class

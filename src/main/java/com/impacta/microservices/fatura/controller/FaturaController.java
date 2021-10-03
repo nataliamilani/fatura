@@ -47,21 +47,6 @@ public class FaturaController {
 
     }
 
-/*
-    //PUT PARA PAGAR FATURA
-    @PutMapping (path = "/pagar/{contaId}/{mes}/{ano}", produces = { "application/json" })
-    public ResponseEntity<Fatura> pagarFaturaContaIdMesAnoValor(@PathVariable("contaId") Integer contaId,
-                                                      @PathVariable("mes") String mes,
-                                                      @PathVariable("ano") String ano,
-                                                      @Valid @RequestBody FaturaAtualizaValorRequest valorPagar) throws UnknownHostException {
-
-        Fatura atualizaPagmentoFatura = faturaService.pagarFaturaContaIdMesAnoValor(contaId, mes, ano, valorPagar.getValorFaturaAtualiza());
-
-        return new ResponseEntity<Fatura>(atualizaPagmentoFatura, HttpStatus.OK);
-
-    }
-*/
-
     //PUT PARA PAGAR FATURA
     @PutMapping (path = "/pagar/{contaId}/{mes}/{ano}", produces = { "application/json" })
     public Fatura pagarFaturaContaIdMesAnoValor(@PathVariable("contaId") Integer contaId,

@@ -28,7 +28,7 @@ public class FaturaService {
 
     public Fatura criarFatura(Fatura fatura){
 
-        var criarFatura = consultaFaturaContaIdMesAno(fatura.getContaId(), fatura.getMes(), fatura.getAno()).isPresent();
+        var criarFatura = repository.findByContaIdAndMesAndAno(fatura.getContaId(), fatura.getMes(), fatura.getAno()).isPresent();
 
         if(criarFatura){
             throw new FaturaNotFoundException("Fatura já existente para conta: " + fatura.getContaId() + ", referente ao período: " + fatura.getMes() + "/" + fatura.getAno());

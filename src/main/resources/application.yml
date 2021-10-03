@@ -16,7 +16,7 @@ spring:
     name: fatura
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: '${DATABASE_CONNECTION_URL:jdbc:mysql://localhost:3306/faturadb}'
+    url: '${DATABASE_CONNECTION_URL:jdbc:mysql://localhost:3303/faturadb}'
     username: mysql
     password: mysql
   jpa:
