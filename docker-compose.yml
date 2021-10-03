@@ -20,12 +20,12 @@ services:
       - debito:debito
       - prometheus:prometheus
     depends_on:
-      - db
+      - dbfatura
     links:
-      - db
+      - dbfatura
     restart: on-failure
 
-  db:
+  dbfatura:
     image: mysql
     container_name: dbfatura
     hostname: dbfatura
